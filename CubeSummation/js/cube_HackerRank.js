@@ -1,5 +1,4 @@
 var cube = [];
-
 function init(n_n_n_matrix,number_of_operations){
 	n = n_n_n_matrix;
 	m = number_of_operations;
@@ -54,7 +53,7 @@ for (var i = 0; i < input.length; i++) {
 			if (Math.pow(-10,9) <= num && num <= Math.pow(10,9)) 
 				cube[line[1]-1][line[2]-1][line[3]-1] = num;
 			else 
-				cube[line[1]-1][line[2]-1][line[3]-1] = num;
+				cube[line[1]-1][line[2]-1][line[3]-1] = 0;
 			break;
 		case 7:
 			console.log(query(line[1],line[2],line[3],line[4],line[5],line[6]));

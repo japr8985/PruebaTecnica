@@ -4,6 +4,14 @@
 
 @section('contenido')
 	<div class="row">
+		<h1>
+			Name: {{ $cube->name }}
+		</h1>
+		<h3>
+			Dimension: {{ $cube->dimension }}
+		</h3>
+	</div>
+	<div class="row">
 		<div class="col-xs-6">
 			<fieldset>
 				<legend>
@@ -14,19 +22,19 @@
 					Form::Label('x','X')
 					}}
 				{!!
-					Form::number('x',null,['class' =>'form-control','min' => '1'])
+					Form::number('x',null,['class' =>'form-control','min' => '1', 'max' => $cube->dimension ])
 					!!}
 				{{
 					Form::Label('y','Y')
 					}}
 				{!!
-					Form::number('y',null,['class' =>'form-control','min' => '1'])
+					Form::number('y',null,['class' =>'form-control','min' => '1', 'max' => $cube->dimension ])
 					!!}
 				{{
 					Form::Label('z','Z')
 					}}
 				{!!
-					Form::number('z',null,['class' =>'form-control','min' => '1'])
+					Form::number('z',null,['class' =>'form-control','min' => '1', 'max' => $cube->dimension ])
 					!!}
 				{{
 					Form::Label('value','Value')
@@ -55,19 +63,19 @@
 				Form::Label('x1','X1')
 				}}
 			{!!
-				Form::number('x1',null,['class' => 'form-control'])
+				Form::number('x1',null,['class' => 'form-control', 'max' => $cube->dimension ])
 				!!}
 			{{
 				Form::Label('y1','Y1')
 					}}
 			{!!
-				Form::number('y1',null,['class' => 'form-control'])
+				Form::number('y1',null,['class' => 'form-control', 'max' => $cube->dimension ])
 				!!}
 			{{
 				Form::Label('z1','Z1')
 					}}
 			{!!
-				Form::number('z1',null,['class' => 'form-control'])
+				Form::number('z1',null,['class' => 'form-control', 'max' => $cube->dimension ])
 				!!}
 		</div>
 
@@ -76,19 +84,19 @@
 				Form::Label('x2','X2')
 					}}
 			{!!
-				Form::number('x2',null,['class' => 'form-control'])
+				Form::number('x2',null,['class' => 'form-control', 'max' => $cube->dimension ])
 				!!}
 			{{
 				Form::Label('y2','Y2')
 					}}
 			{!!
-				Form::number('y2',null,['class' => 'form-control'])
+				Form::number('y2',null,['class' => 'form-control', 'max' => $cube->dimension ])
 				!!}
 			{{
 				Form::Label('z2','Z1')
 					}}
 			{!!
-				Form::number('z2',null,['class' => 'form-control'])
+				Form::number('z2',null,['class' => 'form-control', 'max' => $cube->dimension ])
 			!!}
 		<hr>
 		{!!

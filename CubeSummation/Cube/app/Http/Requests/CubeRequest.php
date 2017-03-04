@@ -24,7 +24,9 @@ class CubeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'min:2|max:120|required'
+            'name' => 'min:2|max:120|required',
+            'dimension' => 'numeric|min:2|max:100'
+            
         ];
     }
 }

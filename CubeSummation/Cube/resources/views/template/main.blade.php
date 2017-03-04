@@ -15,6 +15,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+
 <div class="container-fluid">
 	@if (session()->has('flash_notification.message'))
     	<div class="alert alert-{{ session('flash_notification.level') }}">

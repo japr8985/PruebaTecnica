@@ -43,7 +43,7 @@ class CubesController extends Controller
     		->with('cube',$cube);
     }
 
-    public function update(Request $req, $id)
+    public function update(CubeRequest $req, $id)
     {
     	$cube = Cube::find($id);
 
@@ -60,18 +60,20 @@ class CubesController extends Controller
         return redirect('cubes/list');
 
     }
-    public function query(Request $req,$id)
+    public function query(CubeRequest $req,$id)
     {
-    	try {
-           $cube = Cube::find($id);
-            $matrix = new CubeCreator();
-            $matrix->setCube($cube->cube);
-            $result = $matrix->getCubeSum($req->x1,$req->y1,$req->z1,$req->x2,$req->y2,$req->z2);
-            
-            flash($result); 
-        } catch (Exception $e) {
-            flash($e->getMessage());            
-        }
+	
+        $cube = Cube::find($id);
+
+        $matrix = new CubeCreator();
+        $matrix->setCube($cube->cube);
+        
+        
+
+        $result = $matrix->getCubeSum($req->x1,$req->y1,$req->z1,$req->x2,$req->y2,$req->z2);
+        
+        flash($result); 
+       
 
         return redirect('cubes/list');
 

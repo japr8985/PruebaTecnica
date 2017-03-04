@@ -32,6 +32,7 @@ class CubesController extends Controller
     	
     	$cube->cube = $matrix->getCube();
     	$cube->save();
+        flash('Message','info');
     	return redirect('cubes/list');
     }
 
@@ -45,10 +46,36 @@ class CubesController extends Controller
     public function update(Request $req, $id)
     {
     	$cube = Cube::find($id);
-    	dd($req->all());
+
+    	$matrix = new CubeCreator();
+        $matrix->setCube($cube->cube);
+        
+        $matrix->update($req->x,$req->y,$req->z,$req->value);
+
+        $cube->cube = $matrix->updateCube();
+        $cube->save();
+
+        flash($cube->name . " has been updated");
+
+        return redirect('cubes/list');
+
     }
     public function query(Request $req,$id)
     {
-    	dd("query");
+    	try {
+           $cube = Cube::find($id);
+            $matrix = new CubeCreator();
+            $matrix->setCube($cube->cube);
+            $result = $matrix->getCubeSum($req->x1,$req->y1,$req->z1,$req->x2,$req->y2,$req->z2);
+            
+            flash($result); 
+        } catch (Exception $e) {
+            flash($e->getMessage());            
+        }
+
+        return redirect('cubes/list');
+
+
+
     }
 }

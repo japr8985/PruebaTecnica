@@ -14,19 +14,25 @@
 					Form::Label('x','X')
 					}}
 				{!!
-					Form::number('x',null,['class' =>'form-control'])
+					Form::number('x',null,['class' =>'form-control','min' => '1'])
 					!!}
 				{{
 					Form::Label('y','Y')
 					}}
 				{!!
-					Form::number('y',null,['class' =>'form-control'])
+					Form::number('y',null,['class' =>'form-control','min' => '1'])
 					!!}
-					{{
+				{{
 					Form::Label('z','Z')
 					}}
 				{!!
-					Form::number('z',null,['class' =>'form-control'])
+					Form::number('z',null,['class' =>'form-control','min' => '1'])
+					!!}
+				{{
+					Form::Label('value','Value')
+					}}
+				{!!
+					Form::number('value',null,['class' => 'form-control','min' => '1'])
 					!!}
 				<hr>
 				{!!
@@ -35,10 +41,15 @@
 				{!! Form::close()!!}
 			</fieldset>
 		</div>
+
 	</div>
 	<hr>
 	<div class="row">
-		{!! Form::open(['route' => ['cubes.query',$cube->id],'method' => 'POST']) !!}
+		<fieldset>
+			<legend>
+				Query
+			</legend>
+			{!! Form::open(['route' => ['cubes.query',$cube->id],'method' => 'POST']) !!}
 		<div class="col-xs-6">
 			{{
 				Form::Label('x1','X1')
@@ -86,6 +97,7 @@
 		</div>
 		
 		{!! Form::close() !!}
+		</fieldset>
 	</div>
 
 @endsection

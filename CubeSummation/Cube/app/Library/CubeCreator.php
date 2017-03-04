@@ -38,7 +38,8 @@ class CubeCreator
 		return $this->cube;
 	}
 
-	private function to_pg_array($set) {
+	private function to_pg_array($set) 
+	{
 	    settype($set, 'array'); // can be called with a scalar or array
 	    $result = array();
 	    foreach ($set as $t) {
@@ -53,5 +54,68 @@ class CubeCreator
 	    }
 	    return '{' . implode(",", $result) . '}'; // format
 	}
+	public function update($x = 1, $y = 1, $z = 1,$val)
+	{
+		$this->cube[$x - 1][$y - 1][$z -1] = $val;
+	}
+
+	public function getCubeSum($x1 = 1,$y1 = 1,$z1 = 1,$x2 = 1,$y2 = 1,$z2 = 1)
+	{
+		$sum = 0;
+		for ($i=($x1 - 1); $i < ($x2 -1) ; $i++) { 
+			for ($j=($y1 - 1); $j < ($y2 -1) ; $j++) { 
+				for ($k=($z1 -1); $k <($z2 -1) ; $k++) { 
+					$sum += $this->cube[$i][$j][$k];
+				}
+			}
+		}
+		return $sum;
+	}
+	public function updateCube()
+	{
+		return $this->to_pg_array($this->cube);
+	}
+	public function setCube($cube)
+	{
+		$this->cube = $this->to_php_array($cube);
+	}
+
+	private function to_php_array($s, $start = 0, &$end = null) 
+	{
+	    if (empty($s) || $s[0] != '{') 
+	    	return null;
+	    $return = array();
+	    $string = false;
+	    $quote='';
+	    $len = strlen($s);
+	    $v = '';
+	    for ($i = $start + 1; $i < $len; $i++) {
+	        $ch = $s[$i];
+
+	        if (!$string && $ch == '}') {
+	            if ($v !== '' || !empty($return)) {
+	                $return[] = $v;
+	            }
+	            $end = $i;
+	            break;
+	        } elseif (!$string && $ch == '{') {
+	            $v = $this->to_php_array($s, $i, $i);
+	        } elseif (!$string && $ch == ','){
+	            $return[] = $v;
+	            $v = '';
+	        } elseif (!$string && ($ch == '"' || $ch == "'")) {
+	            $string = true;
+	            $quote = $ch;
+	        } elseif ($string && $ch == $quote && $s[$i - 1] == "\\") {
+	            $v = substr($v, 0, -1) . $ch;
+	        } elseif ($string && $ch == $quote && $s[$i - 1] != "\\") {
+	            $string = false;
+	        } else {
+	            $v .= $ch;
+	        }
+	    }
+
+	    return $return;
+		}
 
 }

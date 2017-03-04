@@ -31,4 +31,18 @@ Route::group(['prefix' => 'cubes'],function(){
 		'uses' => 'CubesController@store',
 		'as'   => 'cubes.store'
 	]);
+
+	Route::get('actions/{id}',[
+		'uses' => 'CubesController@actions',
+		'as'   => 'cubes.actions'
+	]);
+	Route::put('update/{id}',[
+		'uses' => 'CubesController@update',
+		'as'   => 'cubes.update'
+	]);
+
+	Route::post('query/{id}',[
+		'uses' => 'CubesController@query',
+		'as'   => 'cubes.query'
+		]);
 });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CubeMigration extends Migration
+class ChangeTypoOfCube extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,7 @@ class CubeMigration extends Migration
      */
     public function up()
     {
-        Schema::create('cubes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name',255);
-            $table->integer('dimension');
-            $table->string('cube'); 
-            $table->timestamps();
-        });
+        DB::statement('ALTER TABLE cubes ADD COLUMN cube integer[]');
     }
 
     /**
@@ -29,6 +23,8 @@ class CubeMigration extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cubes');
+        Schema::table('cubes',function($table){
+            $table->dropColumn('cube');
+        });
     }
 }

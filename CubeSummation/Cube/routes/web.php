@@ -51,4 +51,9 @@ Route::group(['prefix' => 'cubes'],function(){
 		'uses' => 'CubesController@processQuery',
 		'as' 	=> 'cubes.processQuery'
 		]);
+
+	Route::get('delete/{id}',[
+		'uses' => 'CubesController@delete',
+		'as' 	=> 'cubes.delete'
+		]);
 });

@@ -1,16 +1,27 @@
 @extends('template.main')
 
-@section('title',"Create Cube")
+@section('title',"Query")
 
 @section('contenido')
-	<h1>
+@if(count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>
+                        {{ $error}}
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+	<h3>
 		{{
 			$cube->name
 			}}
-	</h1>
-	<h3>
-			Dimension: {{ $cube->dimension }}
 	</h3>
+	<h5>
+			Dimension: {{ $cube->dimension }}
+	</h5>
 		<div class="row">
 		<fieldset>
 			<legend>

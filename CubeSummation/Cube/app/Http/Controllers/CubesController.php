@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Cube;
 use App\Http\Requests\CubeRequest;
+use App\Http\Requests\CubeUpdateRequest;
+use App\Http\Requests\CubeSumRequest;
 use App\Library\CubeCreator;
 class CubesController extends Controller
 {
@@ -39,12 +41,13 @@ class CubesController extends Controller
     }
 
     public function update($id)
-    {
-    	$cube = Cube::find($id);
+    {   
+    
+        $cube = Cube::find($id);
         return view('cubes.update')->with('cube',$cube);
     }
 
-    public function processUpdate(Request $req, $id)
+    public function processUpdate(CubeUpdateRequest $req, $id)
     {
         
         
@@ -59,8 +62,8 @@ class CubesController extends Controller
         $cube->save();
 
         $msg = $cube->name . " has been updated in (" . $req->x . ', '.$req->y.', '.$req->z .') with '.$req->value; 
-        flash($msg);
-
+        
+        flash($msg,'info');
         return view('cubes.update')->with('cube',$cube);
 
     }
@@ -72,7 +75,7 @@ class CubesController extends Controller
         return view('cubes.query')->with('cube',$cube);
     }
 
-    public function processQuery(Request $req,$id)
+    public function processQuery(CubeSumRequest $req,$id)
     {
 
 	
@@ -83,12 +86,22 @@ class CubesController extends Controller
         
         
 
-        $result = $matrix->getCubeSum($req->x1,$req->y1,$req->z1,$req->x2,$req->y2,$req->z2);
-        
-        flash($result); 
-       
+        $sum = $matrix->getCubeSum($req->x1,$req->y1,$req->z1,$req->x2,$req->y2,$req->z2);
+        $msg = "The sum from (".$req->x1 .",".$req->y1.",".$req->z1.") to (".$req->x2.",".$req->y2.",".$req->z2.") is ".$sum;
+        flash($msg,'info');
 
         return view('cubes.query')->with('cube',$cube);
         
+    }
+
+    public function delete($id)
+    {
+        $cube = Cube::find($id);
+        
+        $msg = 'The cube '.$cube->name.' has been deleted';
+        $cube->delete();
+        flash($msg,'danger');
+        return redirect('cubes/list/');
+
     }
 }

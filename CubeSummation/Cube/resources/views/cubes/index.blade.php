@@ -33,7 +33,7 @@
 						<a href="{{ route('cubes.query',$cube->id)}}">Query</a>
 					</td>
 					<td>
-						<a href="#">Delete</a>
+						<a href="{{ route('cubes.delete',$cube->id)}}">Delete</a>
 					</td>
 				</tr>
 			@endforeach

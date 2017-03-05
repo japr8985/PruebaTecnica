@@ -24,10 +24,10 @@
     	</div>
 	@endif
 </div>
-	<div class="container-fluid">
-		@yield('errors')
-	</div>
 	<div class="container">
+		<h1>
+			<a href="{{route('cubes.list')}}">Cube Summation</a>
+		</h1>
 		@yield('contenido')
 	</div>
 </body>

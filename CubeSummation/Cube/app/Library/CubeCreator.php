@@ -62,9 +62,9 @@ class CubeCreator
 	public function getCubeSum($x1 = 1,$y1 = 1,$z1 = 1,$x2 = 1,$y2 = 1,$z2 = 1)
 	{
 		$sum = 0;
-		for ($i=($x1 - 1); $i < ($x2 -1) ; $i++) { 
-			for ($j=($y1 - 1); $j < ($y2 -1) ; $j++) { 
-				for ($k=($z1 -1); $k <($z2 -1) ; $k++) { 
+		for ($i=($x1 - 1); $i < $x2 ; $i++) { 
+			for ($j=($y1 - 1); $j < $y2 ; $j++) { 
+				for ($k=($z1 -1); $k < $z2  ; $k++) { 
 					$sum += $this->cube[$i][$j][$k];
 				}
 			}

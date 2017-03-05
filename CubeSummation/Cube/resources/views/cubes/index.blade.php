@@ -27,7 +27,10 @@
 							}}
 					</td>
 					<td>
-						<a href="{{ route('cubes.actions',$cube->id)}}"> Query/Update</a>
+						<a href="{{ route('cubes.update',$cube->id) }}" >Update</a>
+					</td>
+					<td>
+						<a href="{{ route('cubes.query',$cube->id)}}">Query</a>
 					</td>
 					<td>
 						<a href="#">Delete</a>

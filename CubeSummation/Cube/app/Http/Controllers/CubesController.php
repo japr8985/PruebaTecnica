@@ -23,31 +23,34 @@ class CubesController extends Controller
 
     public function store(CubeRequest $req)
     {
-    	$cube = new Cube($req->all());
-    	
-    	//Creando cubo
-    	$matrix = new CubeCreator();
-    	$matrix->setDimension($req->dimension);
-    	$matrix->setDefaultCube();
-    	
+        $cube = new Cube($req->all());
+        
+        //Creando cubo
+        $matrix = new CubeCreator();
+        $matrix->setDimension($req->dimension);
+        $matrix->setDefaultCube();
+        
     	$cube->cube = $matrix->getCube();
     	$cube->save();
-        flash('Message','info');
+        flash(
+            $cube->name . ' has been created',
+            'info');
     	return redirect('cubes/list');
     }
 
-    public function actions($id)
+    public function update($id)
     {
     	$cube = Cube::find($id);
-    	return view('cubes.actions')
-    		->with('cube',$cube);
+        return view('cubes.update')->with('cube',$cube);
     }
 
-    public function update(CubeRequest $req, $id)
+    public function processUpdate(Request $req, $id)
     {
-    	$cube = Cube::find($id);
+        
+        
+        $cube = Cube::find($id);
 
-    	$matrix = new CubeCreator();
+        $matrix = new CubeCreator();
         $matrix->setCube($cube->cube);
         
         $matrix->update($req->x,$req->y,$req->z,$req->value);
@@ -55,13 +58,23 @@ class CubesController extends Controller
         $cube->cube = $matrix->updateCube();
         $cube->save();
 
-        flash($cube->name . " has been updated");
+        $msg = $cube->name . " has been updated in (" . $req->x . ', '.$req->y.', '.$req->z .') with '.$req->value; 
+        flash($msg);
 
-        return redirect('cubes/list');
+        return view('cubes.update')->with('cube',$cube);
 
     }
-    public function query(CubeRequest $req,$id)
+
+    public function query($id)
     {
+        $cube = Cube::find($id);
+
+        return view('cubes.query')->with('cube',$cube);
+    }
+
+    public function processQuery(Request $req,$id)
+    {
+
 	
         $cube = Cube::find($id);
 
@@ -75,9 +88,7 @@ class CubesController extends Controller
         flash($result); 
        
 
-        return redirect('cubes/list');
-
-
-
+        return view('cubes.query')->with('cube',$cube);
+        
     }
 }

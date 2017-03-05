@@ -24,6 +24,9 @@
     	</div>
 	@endif
 </div>
+	<div class="container-fluid">
+		@yield('errors')
+	</div>
 	<div class="container">
 		@yield('contenido')
 	</div>

@@ -3,17 +3,7 @@
 @section('title',"Create Cube")
 
 @section('contenido')
-    @if(count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>
-                        {{ $error}}
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    
 	{!! Form::open(['route' => 'cubes.store', 'method' => 'POST']) !!}
     	<div class="form-group">
     		{{ Form::Label('name','Name')}}

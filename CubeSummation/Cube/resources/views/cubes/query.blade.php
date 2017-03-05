@@ -1,63 +1,22 @@
 @extends('template.main')
 
-@section('title',"Operations")
+@section('title',"Create Cube")
 
 @section('contenido')
-	<div class="row">
-		<h1>
-			Name: {{ $cube->name }}
-		</h1>
-		<h3>
+	<h1>
+		{{
+			$cube->name
+			}}
+	</h1>
+	<h3>
 			Dimension: {{ $cube->dimension }}
-		</h3>
-	</div>
-	<div class="row">
-		<div class="col-xs-6">
-			<fieldset>
-				<legend>
-					Update
-				</legend>
-				{!! Form::open(['route' =>[ 'cubes.update',$cube->id], 'method' => 'PUT'])!!}
-				{{
-					Form::Label('x','X')
-					}}
-				{!!
-					Form::number('x',null,['class' =>'form-control','min' => '1', 'max' => $cube->dimension ])
-					!!}
-				{{
-					Form::Label('y','Y')
-					}}
-				{!!
-					Form::number('y',null,['class' =>'form-control','min' => '1', 'max' => $cube->dimension ])
-					!!}
-				{{
-					Form::Label('z','Z')
-					}}
-				{!!
-					Form::number('z',null,['class' =>'form-control','min' => '1', 'max' => $cube->dimension ])
-					!!}
-				{{
-					Form::Label('value','Value')
-					}}
-				{!!
-					Form::number('value',null,['class' => 'form-control','min' => '1'])
-					!!}
-				<hr>
-				{!!
-					Form::submit('Update',['class' => 'btn btn-primary'])
-					!!}
-				{!! Form::close()!!}
-			</fieldset>
-		</div>
-
-	</div>
-	<hr>
-	<div class="row">
+	</h3>
+		<div class="row">
 		<fieldset>
 			<legend>
 				Query
 			</legend>
-			{!! Form::open(['route' => ['cubes.query',$cube->id],'method' => 'POST']) !!}
+			{!! Form::open(['route' => ['cubes.processQuery',$cube->id],'method' => 'POST']) !!}
 		<div class="col-xs-6">
 			{{
 				Form::Label('x1','X1')
@@ -107,5 +66,6 @@
 		{!! Form::close() !!}
 		</fieldset>
 	</div>
+
 
 @endsection
